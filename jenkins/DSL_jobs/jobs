@@ -1,20 +1,21 @@
-job('maven_dsl') {
+job('maven_second_dsl') {
 
-    description('Maven dsl project')
+    description('Maven second dsl project')
 
     scm {
-        git('https://github.com/jenkins-docs/simple-java-maven-app', 'master', {node -> node / 'extensions' << '' })
+        git('https://github.com/Devops0707/galaxy-demo-project.git', 'master', {node -> node / 'extensions' << '' })
     }
 
     steps {
         maven {
-            mavenInstallation('maven')
+            mavenInstallation('maven_3.8.5')
             goals('-B -DskipTests clean package')
         }
         maven {
-            mavenInstallation('maven')
+            mavenInstallation('maven_3.8.5')
             goals('test')
         }
+}
         shell('''
             echo ************RUNNING THE JAR************************
             java -jar /var/lib/jenkins/workspace/maven_dsl/target/my-app-1.0-SNAPSHOT.jar
@@ -24,7 +25,6 @@ job('maven_dsl') {
     publishers {
         archiveArtifacts('target/*.jar')
         archiveJunit('target/surefire-reports/*.xml')
-        mailer('valaxytech@gmail.com', true, true)
+        mailer('fivesteps07@gmail.com', true, true)
     }
 }
-
