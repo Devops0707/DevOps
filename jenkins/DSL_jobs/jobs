@@ -27,4 +27,4 @@ job('maven_second_dsl') {
         archiveJunit('target/surefire-reports/*.xml')
         mailer('fivesteps07@gmail.com', true, true)
     }
-}
+
